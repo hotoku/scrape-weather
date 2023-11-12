@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "scrape-weather"
+version = "0.1.0"
+description = ""
+authors = ["Yasunori Horikoshi <hotoku@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+scrapy = "^2.11.0"
+retry = "^0.9.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
