@@ -11,11 +11,13 @@ class PrefectureInfo(scrapy.Item):
     href = scrapy.Field()
     number = scrapy.Field()
 
+
 class BlockInfo(scrapy.Item):
     name = scrapy.Field()
     href = scrapy.Field()
     number = scrapy.Field()
     prefecture_number = scrapy.Field()
+
 
 class WeatherInfo(scrapy.Item):
     year = scrapy.Field()
@@ -28,3 +30,4 @@ class WeatherInfo(scrapy.Item):
     temperature_high = scrapy.Field()
     temperature_low = scrapy.Field()
     snow_fall = scrapy.Field()
+    run_id = scrapy.Field()

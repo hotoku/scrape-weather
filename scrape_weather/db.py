@@ -4,10 +4,12 @@ from retry import retry
 
 from .items import PrefectureInfo, BlockInfo, WeatherInfo
 
+
 def connect():
     con = sqlite3.connect("db.sqlite")
     con.row_factory = sqlite3.Row
     return con
+
 
 def create_tables():
     print("create_tables")
@@ -42,14 +44,16 @@ def create_tables():
         temperature_avg real not null,
         temperature_high real not null,
         temperature_low real not null,
-        snow_fall real nullable
+        snow_fall real nullable,
+        run_id text not null
     )
     """)
     conn.commit()
     conn.close()
 
 
-create_tables()    
+create_tables()
+
 
 def insert_prefecture(info: PrefectureInfo):
     conn = connect()
@@ -59,6 +63,7 @@ def insert_prefecture(info: PrefectureInfo):
     """, (info["number"], info["name"], info["href"]))
     conn.commit()
     conn.close()
+
 
 def load_prefecture_href():
     conn = connect()
@@ -81,6 +86,7 @@ def insert_block(info: BlockInfo):
     conn.commit()
     conn.close()
 
+
 def load_blocks() -> list[BlockInfo]:
     conn = connect()
     cursor = conn.cursor()
@@ -97,7 +103,7 @@ def load_blocks() -> list[BlockInfo]:
     blocks = [BlockInfo(**row) for row in cursor.fetchall()]
     conn.close()
     return blocks
-    
+
 
 @retry(delay=1e-2)
 def insert_weather(info: WeatherInfo):
@@ -114,11 +120,12 @@ def insert_weather(info: WeatherInfo):
         temperature_avg,
         temperature_high,
         temperature_low,
-        snow_fall
-    ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        snow_fall,
+        run_id
+    ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (info["year"], info["month"], info["day"],
           info["prec_no"], info["block_no"],
           info["precipitation"], info["temperature_avg"], info["temperature_high"],
-          info["temperature_low"], info["snow_fall"]))
+          info["temperature_low"], info["snow_fall"], info["run_id"]))
     conn.commit()
     conn.close()
