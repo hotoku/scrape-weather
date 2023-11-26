@@ -40,10 +40,10 @@ def create_tables():
         day integer not null,
         prec_no text not null,
         block_no text not null,
-        precipitation real not null,
-        temperature_avg real not null,
-        temperature_high real not null,
-        temperature_low real not null,
+        precipitation real nullable,
+        temperature_avg real nullable,
+        temperature_high real nullable,
+        temperature_low real nullable,
         snow_fall real nullable,
         run_id text not null
     )

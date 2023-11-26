@@ -64,5 +64,4 @@ class WeatherSpider(scrapy.Spider):
                 temperature_high=try_parse(tds[5]),
                 temperature_low=try_parse(tds[6]),
                 snow_fall=try_parse(tds[16]),
-                run_id=self.run_id
-            )
+                run_id=self.run_id)
