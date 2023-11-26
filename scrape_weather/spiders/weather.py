@@ -6,18 +6,21 @@ from scrapy.http import HtmlResponse
 from ..db import load_blocks
 from ..items import WeatherInfo
 
+
 def load_start_urls(year: str, month: str) -> list[str]:
     blocks = load_blocks()
     return [
         f"https://www.data.jma.go.jp/stats/etrn/view/daily_a1.php?prec_no={block['prefecture_number']}&block_no={block['number']}&year={year}&month={month}"
         for block in blocks
-    ][1:2]
+    ]
+
 
 def try_parse(s: str) -> float:
     try:
         return float(s)
     except ValueError:
         return float("nan")
+
 
 class WeatherSpider(scrapy.Spider):
     name = "weather"
